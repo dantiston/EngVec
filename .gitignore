@@ -1,0 +1,10 @@
+# Ignore test output
+tests.out
+info.out
+
+# Ignore grammar files
+*dat
+
+# Ignore auto-saves
+*~
+\#*\#

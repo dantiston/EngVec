@@ -1,2 +1,8 @@
 ;;; -*- Mode: TDL; Coding: utf-8 -*-
+singular-lex := singular-lex-rule.
+
+person-number-tense-non-3rd-present-lex := person-number-tense-non-3rd-present-lex-rule.
+
+irregular-ends-with-e-non-3rd-present-lex := irregular-ends-with-e-non-3rd-present-lex-rule.
+
 inv-lr := subj-v-inv-lrule.

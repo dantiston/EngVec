@@ -117,6 +117,66 @@ sow := regular-count-feminine-noun-lex &
 
 ;;; Adjectives
 
+big := common-adj-lex &
+  [ STEM < "big" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_big_a_rel" ].
+
+small := common-adj-lex &
+  [ STEM < "small" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_small_a_rel" ].
+
+happy := common-adj-lex &
+  [ STEM < "happy" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_happy_a_rel" ].
+
+sad := common-adj-lex &
+  [ STEM < "sad" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_sad_a_rel" ].
+
+angry := common-adj-lex &
+  [ STEM < "angry" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_angry_a_rel" ].
+
+normal := common-adj-lex &
+  [ STEM < "normal" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_normal_a_rel" ].
+
+red := common-adj-lex &
+  [ STEM < "red" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_red_a_rel" ].
+
+blue := common-adj-lex &
+  [ STEM < "blue" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_blue_a_rel" ].
+
+green := common-adj-lex &
+  [ STEM < "green" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_green_a_rel" ].
+
+yellow := common-adj-lex &
+  [ STEM < "yellow" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_yellow_a_rel" ].
+
+black := common-adj-lex &
+  [ STEM < "black" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_black_a_rel" ].
+
+white := common-adj-lex &
+  [ STEM < "white" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_white_a_rel" ].
+
+awake := predicative-only-adj-lex &
+  [ STEM < "awake" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_awake_a_rel" ].
+
+mere := prenominal-attributive-only-adj-lex &
+  [ STEM < "mere" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_mere_a_rel" ].
+
+general := postnominal-attributive-only-adj-lex &
+  [ STEM < "general" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_general_a_rel" ].
+
 ;;; Verbs
 
 sleep := regular-intransitive-verb-lex &
@@ -163,6 +223,22 @@ earn := regular-transitive-verb-lex &
   [ STEM < "earn" >,
     SYNSEM.LKEYS.KEYREL.PRED "_earn_v_rel" ].
 
+chase := irregular-ends-with-e-transitive-verb-lex &
+  [ STEM < "chase" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_chase_v_rel" ].
+
+love := irregular-ends-with-e-transitive-verb-lex &
+  [ STEM < "love" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_love_v_rel" ].
+
+like := irregular-ends-with-e-transitive-verb-lex &
+  [ STEM < "like" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_like_v_rel" ].
+
+leave := irregular-ends-with-e-transitive-verb-lex &
+  [ STEM < "leave" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_leave_v_rel" ].
+
 ;;; Auxiliaries
 
 will := future-aux-lex &
@@ -176,10 +252,10 @@ am := present-first-person-singular-cop-lex &
 are_1 := present-second-person-singular-cop-lex &
   [ STEM < "are" > ].
 
-is := present-third-person-singular-gendered-cop-lex &
+is := present-third-person-singular-animate-cop-lex &
   [ STEM < "is" > ].
 
-are_2 := present-third-person-singular-non-gendered-cop-lex &
+are_2 := present-third-person-singular-non-inanimate-cop-lex &
   [ STEM < "are" > ].
 
 are_3 := present-plural-cop-lex &

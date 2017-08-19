@@ -2,7 +2,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Grammar of English
 ;;; created at:
-;;;     Sat Aug 19 16:19:27 UTC 2017
+;;;     Sat Aug 19 18:43:20 UTC 2017
 ;;; based on Matrix customization system version of:
 ;;;     Tue Jul  4 20:47:47 UTC 2017
 ;;;
@@ -18,15 +18,25 @@ non-mod-lex-item := lex-item &
 ;;; Matrix Type Addenda
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 
+png :+ [ PROGRESSIVE bool,
+    PERFECTIVE bool,
+    PER person,
+    NUM number,
+    GEND gender ].
+
 noun :+ [ CASE case ].
 
 head :+ [ AUX bool,
     PRD bool,
     FORM form ].
 
-png :+ [ PER person,
-    NUM number,
-    GEND gender ].
+inflected :+ [ IRREGULAR-ENDS-WITH-E-PERSON-NUMBER-TENSE-FLAG luk,
+    NUMBER-FLAG luk,
+    PERSON-NUMBER-TENSE-FLAG luk ].
+
+infl-satisfied :+ [ IRREGULAR-ENDS-WITH-E-PERSON-NUMBER-TENSE-FLAG na-or-+,
+    NUMBER-FLAG na-or-+,
+    PERSON-NUMBER-TENSE-FLAG na-or-+ ].
 
 basic-head-comp-phrase :+ [ SYNSEM.LOCAL.CAT.MC #mc,
     HEAD-DTR.SYNSEM.LOCAL.CAT.MC #mc ].
@@ -68,9 +78,8 @@ plural := number.
 gender := *top*.
 animate := gender.
 inanimate := gender.
-masculine := gendered.
-feminine := gendered.
-gendered := animate.
+masculine := animate.
+feminine := animate.
 
 ;;; Form
 
@@ -83,11 +92,6 @@ finite := form.
 past := tense.
 present := tense.
 future := tense.
-
-;;; Aspect
-
-perfective := aspect.
-imperfective := aspect.
 
 ;;; Mood
 
@@ -183,7 +187,8 @@ regular-noun-lex := noun-lex.
 
 irregular-noun-lex := noun-lex.
 
-regular-count-noun-lex := count-noun-lex & regular-noun-lex.
+regular-count-noun-lex := count-noun-lex & regular-noun-lex &
+  [ INFLECTED.NUMBER-FLAG - ].
 
 irregular-count-noun-lex := count-noun-lex & irregular-noun-lex.
 
@@ -247,13 +252,21 @@ intrans-verb-lex := nom-intransitive-verb-lex.
 
 trans-verb-lex := nom-acc-transitive-verb-lex.
 
-regular-verb-lex := verb-lex.
+regular-verb-lex := verb-lex &
+  [ INFLECTED.PERSON-NUMBER-TENSE-FLAG - ].
 
 irregular-verb-lex := verb-lex.
 
 regular-intransitive-verb-lex := intrans-verb-lex & regular-verb-lex.
 
 regular-transitive-verb-lex := trans-verb-lex & regular-verb-lex.
+
+irregular-ends-with-e-verb-lex := verb-lex &
+  [ INFLECTED.IRREGULAR-ENDS-WITH-E-PERSON-NUMBER-TENSE-FLAG - ].
+
+irregular-ends-with-e-transitive-verb-lex := trans-verb-lex & irregular-ends-with-e-verb-lex.
+
+irregular-ends-with-e-intransitive-verb-lex := intrans-verb-lex & irregular-ends-with-e-verb-lex.
 
 ;;; Auxiliaries
 
@@ -338,16 +351,17 @@ present-first-person-singular-cop-lex := singular-cop-lex & first-person-cop-lex
 
 present-second-person-singular-cop-lex := singular-cop-lex & second-person-cop-lex & present-cop-lex.
 
-non-gendered-cop-lex := base-cop-lex.
+present-third-person-singular-animate-cop-lex := singular-cop-lex & third-person-cop-lex & present-cop-lex & animate-cop-lex.
 
-gendered-cop-lex := base-cop-lex &
-  [ SYNSEM.LOCAL.CAT.VAL.SUBJ.FIRST.LOCAL.CONT.HOOK.INDEX.PNG.GEND gendered ].
-
-present-third-person-singular-gendered-cop-lex := singular-cop-lex & third-person-cop-lex & present-cop-lex & gendered-cop-lex.
-
-present-third-person-singular-non-gendered-cop-lex := singular-cop-lex & third-person-cop-lex & present-cop-lex & non-gendered-cop-lex.
+present-third-person-singular-non-inanimate-cop-lex := singular-cop-lex & third-person-cop-lex & present-cop-lex & inanimate-cop-lex.
 
 present-plural-cop-lex := plural-cop-lex & present-cop-lex.
+
+animate-cop-lex := base-cop-lex &
+  [ SYNSEM.LOCAL.CAT.VAL.SUBJ.FIRST.LOCAL.CONT.HOOK.INDEX.PNG.GEND animate ].
+
+inanimate-cop-lex := base-cop-lex &
+  [ SYNSEM.LOCAL.CAT.VAL.SUBJ.FIRST.LOCAL.CONT.HOOK.INDEX.PNG.GEND inanimate ].
 
 ;;; Adjectives
 
@@ -399,6 +413,76 @@ indefinite-determiner-lex := determiner-lex & no-icons-lex-item.
 ;;;;;;;;;;;;;;;;;;;
 
 ;;; Lexical rule types
+
+number-lex-rule-super := add-only-no-ccont-rule &
+  [ INFLECTED [ NUMBER-FLAG +,
+                IRREGULAR-ENDS-WITH-E-PERSON-NUMBER-TENSE-FLAG #irregular-ends-with-e-person-number-tense,
+                PERSON-NUMBER-TENSE-FLAG #person-number-tense ],
+    DTR regular-count-noun-lex &
+        [ INFLECTED [ IRREGULAR-ENDS-WITH-E-PERSON-NUMBER-TENSE-FLAG #irregular-ends-with-e-person-number-tense,
+                      PERSON-NUMBER-TENSE-FLAG #person-number-tense ] ] ].
+
+singular-lex-rule := const-lex-rule & number-lex-rule-super &
+  [ SYNSEM.LOCAL.CONT.HOOK.INDEX.PNG.NUM singular ].
+
+plural-lex-rule := infl-lex-rule & number-lex-rule-super &
+  [ SYNSEM.LOCAL.CONT.HOOK.INDEX.PNG.NUM plural ].
+
+person-number-tense-lex-rule-super := add-only-no-ccont-rule &
+  [ INFLECTED [ PERSON-NUMBER-TENSE-FLAG +,
+                IRREGULAR-ENDS-WITH-E-PERSON-NUMBER-TENSE-FLAG #irregular-ends-with-e-person-number-tense,
+                NUMBER-FLAG #number ],
+    DTR regular-verb-lex &
+        [ INFLECTED [ IRREGULAR-ENDS-WITH-E-PERSON-NUMBER-TENSE-FLAG #irregular-ends-with-e-person-number-tense,
+                      NUMBER-FLAG #number ] ] ].
+
+person-number-tense-present-lex-rule := person-number-tense-finite-lex-rule &
+  [ SYNSEM.LOCAL.CONT.HOOK.INDEX.E [ TENSE present,
+                                     MOOD indicative ] ].
+
+person-number-tense-past-lex-rule := infl-lex-rule & person-number-tense-finite-lex-rule &
+  [ SYNSEM.LOCAL.CONT.HOOK.INDEX.E [ TENSE past,
+                                     MOOD indicative ] ].
+
+person-number-tense-3rd-lex-rule := infl-lex-rule & person-number-tense-lex-rule-super &
+  [ SYNSEM.LOCAL.CAT.VAL.SUBJ.FIRST.LOCAL.CONT.HOOK.INDEX.PNG.PER 3rd ].
+
+person-number-tense-non-3rd-lex-rule := const-lex-rule & person-number-tense-lex-rule-super.
+
+person-number-tense-finite-lex-rule := person-number-tense-lex-rule-super &
+  [ SYNSEM.LOCAL.CAT.HEAD.FORM finite ].
+
+person-number-tense-3rd-present-lex-rule := person-number-tense-3rd-lex-rule & person-number-tense-present-lex-rule.
+
+person-number-tense-non-3rd-present-lex-rule := person-number-tense-non-3rd-lex-rule & person-number-tense-present-lex-rule.
+
+irregular-ends-with-e-person-number-tense-lex-rule-super := add-only-no-ccont-rule &
+  [ INFLECTED [ IRREGULAR-ENDS-WITH-E-PERSON-NUMBER-TENSE-FLAG +,
+                PERSON-NUMBER-TENSE-FLAG #person-number-tense,
+                NUMBER-FLAG #number ],
+    DTR irregular-ends-with-e-verb-lex &
+        [ INFLECTED [ PERSON-NUMBER-TENSE-FLAG #person-number-tense,
+                      NUMBER-FLAG #number ] ] ].
+
+irregular-ends-with-e-present-lex-rule := irregular-ends-with-e-finite-lex-rule &
+  [ SYNSEM.LOCAL.CONT.HOOK.INDEX.E [ TENSE present,
+                                     MOOD indicative ] ].
+
+irregular-ends-with-e-past-lex-rule := infl-lex-rule & irregular-ends-with-e-finite-lex-rule &
+  [ SYNSEM.LOCAL.CONT.HOOK.INDEX.E [ TENSE past,
+                                     MOOD indicative ] ].
+
+irregular-ends-with-e-3rd-lex-rule := infl-lex-rule & irregular-ends-with-e-person-number-tense-lex-rule-super &
+  [ SYNSEM.LOCAL.CAT.VAL.SUBJ.FIRST.LOCAL.CONT.HOOK.INDEX.PNG.PER 3rd ].
+
+irregular-ends-with-e-non-3rd-lex-rule := const-lex-rule & irregular-ends-with-e-person-number-tense-lex-rule-super.
+
+irregular-ends-with-e-finite-lex-rule := irregular-ends-with-e-person-number-tense-lex-rule-super &
+  [ SYNSEM.LOCAL.CAT.HEAD.FORM finite ].
+
+irregular-ends-with-e-3rd-present-lex-rule := irregular-ends-with-e-3rd-lex-rule & irregular-ends-with-e-present-lex-rule.
+
+irregular-ends-with-e-non-3rd-present-lex-rule := irregular-ends-with-e-non-3rd-lex-rule & irregular-ends-with-e-present-lex-rule.
 
 ; Rule for inverted subject verb order in questions.
 ; The incompatible SUBJ values on SYNSEM and DTR are

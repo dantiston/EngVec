@@ -1,0 +1,11 @@
+# present intransitive
+the dog sleeps
+
+# present transitive
+the dog counts the cats
+
+# past intransitive
+the dog sleeps
+
+# past transitive
+the dog counted the cats

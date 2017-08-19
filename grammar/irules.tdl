@@ -1,1 +1,22 @@
 ;;; -*- Mode: TDL; Coding: utf-8 -*-
+;;; Inflecting Lexical Rule Instances
+
+plural-suffix :=
+%suffix (* s)
+plural-lex-rule.
+
+person-number-tense-past-suffix :=
+%suffix (* ed)
+person-number-tense-past-lex-rule.
+
+person-number-tense-3rd-present-suffix :=
+%suffix (* s)
+person-number-tense-3rd-present-lex-rule.
+
+irregular-ends-with-e-past-suffix :=
+%suffix (* d)
+irregular-ends-with-e-past-lex-rule.
+
+irregular-ends-with-e-3rd-present-suffix :=
+%suffix (* s)
+irregular-ends-with-e-3rd-present-lex-rule.

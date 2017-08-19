@@ -1,0 +1,1 @@
+ace -g grammar/ace/config.tdl -G engvec.dat

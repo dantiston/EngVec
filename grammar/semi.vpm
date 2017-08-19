@@ -49,7 +49,6 @@ PNG.NUM : PNG.NUM
   * <> *
 
 PNG.GEND : PNG.GEND
-  gendered <> gendered
   feminine <> feminine
   masculine <> masculine
   inanimate <> inanimate
