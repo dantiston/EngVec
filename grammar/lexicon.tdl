@@ -1,0 +1,201 @@
+;;; -*- Mode: TDL; Coding: utf-8 -*-
+;;; Nouns
+
+I := first-person-singular-pronoun-noun-lex &
+  [ STEM < "I" >,
+    SYNSEM.LKEYS.KEYREL.PRED "pron_rel" ].
+
+you_1 := second-person-singular-pronoun-noun-lex &
+  [ STEM < "you" >,
+    SYNSEM.LKEYS.KEYREL.PRED "pron_rel" ].
+
+he := third-person-singular-masculine-pronoun-noun-lex &
+  [ STEM < "he" >,
+    SYNSEM.LKEYS.KEYREL.PRED "pron_rel" ].
+
+she := third-person-singular-feminine-pronoun-noun-lex &
+  [ STEM < "she" >,
+    SYNSEM.LKEYS.KEYREL.PRED "pron_rel" ].
+
+it := third-person-singular-inanimate-pronoun-noun-lex &
+  [ STEM < "it" >,
+    SYNSEM.LKEYS.KEYREL.PRED "pron_rel" ].
+
+we := first-person-plural-pronoun-noun-lex &
+  [ STEM < "we" >,
+    SYNSEM.LKEYS.KEYREL.PRED "pron_rel" ].
+
+y%27all := second-person-plural-pronoun-noun-lex &
+  [ STEM < "y'all" >,
+    SYNSEM.LKEYS.KEYREL.PRED "pron_rel" ].
+
+you%20guys := second-person-plural-pronoun-noun-lex &
+  [ STEM < "you",
+           "guys" >,
+    SYNSEM.LKEYS.KEYREL.PRED "pron_rel" ].
+
+you_2 := second-person-plural-pronoun-noun-lex &
+  [ STEM < "you" >,
+    SYNSEM.LKEYS.KEYREL.PRED "pron_rel" ].
+
+you%20all := second-person-plural-pronoun-noun-lex &
+  [ STEM < "you",
+           "all" >,
+    SYNSEM.LKEYS.KEYREL.PRED "pron_rel" ].
+
+they_1 := third-person-plural-pronoun-noun-lex &
+  [ STEM < "they" >,
+    SYNSEM.LKEYS.KEYREL.PRED "pron_rel" ].
+
+they_2 := third-person-singular-animate-pronoun-noun-lex &
+  [ STEM < "they" >,
+    SYNSEM.LKEYS.KEYREL.PRED "pron_rel" ].
+
+dog := regular-count-animate-noun-lex &
+  [ STEM < "dog" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_dog_n_rel" ].
+
+cat := regular-count-animate-noun-lex &
+  [ STEM < "cat" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_cat_n_rel" ].
+
+bird := regular-count-animate-noun-lex &
+  [ STEM < "bird" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_bird_n_rel" ].
+
+animal := regular-count-animate-noun-lex &
+  [ STEM < "animal" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_animal_n_rel" ].
+
+gorilla := regular-count-animate-noun-lex &
+  [ STEM < "gorilla" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_gorilla_n_rel" ].
+
+giraffe := regular-count-animate-noun-lex &
+  [ STEM < "giraffe" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_giraffe_n_rel" ].
+
+aardvark := regular-count-animate-noun-lex &
+  [ STEM < "aardvark" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_aardvark_n_rel" ].
+
+ant := regular-count-animate-noun-lex &
+  [ STEM < "ant" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_ant_n_rel" ].
+
+zebra := regular-count-animate-noun-lex &
+  [ STEM < "zebra" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_zebra_n_rel" ].
+
+cup := regular-common-inanimate-noun-lex &
+  [ STEM < "cup" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_cup_n_rel" ].
+
+blanket := regular-common-inanimate-noun-lex &
+  [ STEM < "blanket" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_blanket_n_rel" ].
+
+table := regular-common-inanimate-noun-lex &
+  [ STEM < "table" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_table_n_rel" ].
+
+chair := regular-common-inanimate-noun-lex &
+  [ STEM < "chair" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_chair_n_rel" ].
+
+house := regular-common-inanimate-noun-lex &
+  [ STEM < "house" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_house_n_rel" ].
+
+steer := regular-count-masculine-noun-lex &
+  [ STEM < "steer" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_steer_n_rel" ].
+
+sow := regular-count-feminine-noun-lex &
+  [ STEM < "sow" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_sow_n_rel" ].
+
+;;; Adjectives
+
+;;; Verbs
+
+sleep := regular-intransitive-verb-lex &
+  [ STEM < "sleep" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_sleep_v_rel" ].
+
+walk := regular-intransitive-verb-lex &
+  [ STEM < "walk" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_walk_v_rel" ].
+
+bark := regular-intransitive-verb-lex &
+  [ STEM < "bark" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_bark_v_rel" ].
+
+jump := regular-intransitive-verb-lex &
+  [ STEM < "jump" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_jump_v_rel" ].
+
+accept := regular-transitive-verb-lex &
+  [ STEM < "accept" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_accept_v_rel" ].
+
+allow := regular-transitive-verb-lex &
+  [ STEM < "allow" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_allow_v_rel" ].
+
+applaud := regular-transitive-verb-lex &
+  [ STEM < "applaud" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_applaud_v_rel" ].
+
+call := regular-transitive-verb-lex &
+  [ STEM < "call" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_call_v_rel" ].
+
+count := regular-transitive-verb-lex &
+  [ STEM < "count" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_count_v_rel" ].
+
+delay := regular-transitive-verb-lex &
+  [ STEM < "delay" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_delay_v_rel" ].
+
+earn := regular-transitive-verb-lex &
+  [ STEM < "earn" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_earn_v_rel" ].
+
+;;; Auxiliaries
+
+will := future-aux-lex &
+  [ STEM < "will" > ].
+
+;;; Copulas
+
+am := present-first-person-singular-cop-lex &
+  [ STEM < "am" > ].
+
+are_1 := present-second-person-singular-cop-lex &
+  [ STEM < "are" > ].
+
+is := present-third-person-singular-gendered-cop-lex &
+  [ STEM < "is" > ].
+
+are_2 := present-third-person-singular-non-gendered-cop-lex &
+  [ STEM < "are" > ].
+
+are_3 := present-plural-cop-lex &
+  [ STEM < "are" > ].
+
+;;; Determiners
+
+the := definite-determiner-lex &
+  [ STEM < "the" >,
+    SYNSEM.LKEYS.KEYREL.PRED "def_q_rel" ].
+
+a := indefinite-determiner-lex &
+  [ STEM < "a" >,
+    SYNSEM.LKEYS.KEYREL.PRED "indef_q_rel" ].
+
+and := conj-lex &
+  [ STEM < "and" >,
+    SYNSEM.LKEYS.KEYREL.PRED "_and_coord_rel",
+    CFORM "1" ].
