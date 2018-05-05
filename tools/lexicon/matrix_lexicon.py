@@ -27,7 +27,7 @@ class MatrixLexicon(object):
         return self.values[key]
 
 
-    def add(self, key: LexiconType, type: str, value: str) -> None:
-        if key is None or type is None or value is None:
+    def add(self, key: LexiconType, typeName: str, value: str) -> None:
+        if key is None or type(key) is not LexiconType or typeName is None or value is None:
             raise TypeError("MatrixLexicon.add received illegal None type argument")
-        self.values[key][type].add(value)
+        self.values[key][typeName].add(value)

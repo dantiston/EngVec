@@ -42,3 +42,21 @@ class MatrixLexiconTests(unittest.TestCase):
         actual = lexicon.get(LexiconType.TRANSITIVE_VERBS)
         expected = {"nice": {"love"}, "mean": {"hate"}}
         self.assertEqual(actual, expected)
+
+
+    def test_multiple_keys(self) -> None:
+        lexicon = MatrixLexicon()
+        lexicon.add(LexiconType.TRANSITIVE_VERBS, "test", "love")
+        lexicon.add(LexiconType.INTRANSITIVE_VERBS, "test", "hate")
+        actual1 = lexicon.get(LexiconType.TRANSITIVE_VERBS)
+        expected1 = {"test": {"love"}}
+        actual2 = lexicon.get(LexiconType.INTRANSITIVE_VERBS)
+        expected2 = {"test": {"hate"}}
+        self.assertEqual(actual1, expected1)
+        self.assertEqual(actual2, expected2)
+
+
+    def test_illegal_key(self) -> None:
+        lexicon = MatrixLexicon()
+        with self.assertRaises(TypeError):
+            lexicon.add("a", "b", "c")
