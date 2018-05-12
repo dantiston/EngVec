@@ -2,7 +2,9 @@
 
 
 import argparse
+
 from lexicon_builder import LexiconBuilder
+
 
 class ConllBuilder(LexiconBuilder):
 

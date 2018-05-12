@@ -1,7 +1,8 @@
 #!/usr/bin/env python3.6
 
 import argparse
-from builders.conll_corpus_builder import ConllBuilder
+
+from .conll_corpus_builder import ConllBuilder
 
 
 class UniversalDependencies2Builder(ConllBuilder):

@@ -15,6 +15,7 @@ class LexiconType(Enum):
     ADJECTIVES = 7
     PREPOSITIONS = 8
 
+
 class MatrixLexicon(object):
 
     def __init__(self) -> None:

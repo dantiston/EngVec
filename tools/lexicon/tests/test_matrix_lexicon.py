@@ -60,3 +60,7 @@ class MatrixLexiconTests(unittest.TestCase):
         lexicon = MatrixLexicon()
         with self.assertRaises(TypeError):
             lexicon.add("a", "b", "c")
+
+
+if __name__ == "__main__":
+    unittest.main()

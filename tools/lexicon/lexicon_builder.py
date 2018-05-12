@@ -2,8 +2,6 @@
 
 import argparse
 
-from builders import ud2_corpus_builder
-
 
 class LexiconBuilder(object):
 
@@ -24,6 +22,9 @@ class LexiconBuilder(object):
 
 
 if __name__ == "__main__":
+
+    # Circular dependencies must be defined in main
+    from builders import ud2_corpus_builder
 
     lexicon_builder = LexiconBuilder()
     builders = {builder() for builder in {ud2_corpus_builder.UniversalDependencies2Builder}}
