@@ -13,18 +13,15 @@ class ConllToken(object):
 
     def __init__(self, *args):
         # index, token, lemma, pos, xpos, morph, head, rel, edep, misc
-        self.index = self.__get_nullable(args, ConllToken.INDEX)
-        try:
-            self.token = args[ConllToken.TOKEN]
-        except Exception:
-            import pdb; pdb.set_trace()
+        self.index = str(self.__get_nullable(args, ConllToken.INDEX))
+        self.token = args[ConllToken.TOKEN]
         self.lemma = args[ConllToken.LEMMA]
         self.pos = self.__get_nullable(args, ConllToken.POS)
         self.xpos = self.__get_nullable(args, ConllToken.XPOS)
 
         if len(args) > ConllToken.MORPH:
             self.morph = self._load_dict(self.__get_nullable(args, ConllToken.MORPH))
-            self.head = self.__get_nullable(args, ConllToken.HEAD)
+            self.head = str(self.__get_nullable(args, ConllToken.HEAD))
             self.rel = self.__get_nullable(args, ConllToken.REL)
 
             if len(args) > ConllToken.EDEP:
@@ -39,7 +36,7 @@ class ConllToken(object):
 
         else:
             self.morph = {}
-            self.head = -1
+            self.head = None
             self.rel = None
 
 
@@ -78,7 +75,13 @@ class ConllToken(object):
 
     # TODO: Make this compatible with loading
     def __str__(self) -> str:
-        return "\t".join(map(str, (self.index, self.token, self.lemma, self.pos, self.xpos, self.morph, self.head, self.rel)))
+        return "\t".join(map(self._as_loadable, (self.index, self.token, self.lemma, self.pos, self.xpos, self.morph, self.head, self.rel)))
+
+
+    def _as_loadable(self, value):
+        if value == EMPTY or value is None:
+            return EMPTY
+        return value
 
 
     def __repr__(self) -> str:

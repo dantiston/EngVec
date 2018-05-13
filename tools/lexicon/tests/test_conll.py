@@ -5,7 +5,7 @@ import unittest
 from data_types import conll
 
 
-class ConllDocumentTests(unittest.TestCase):
+class ConllDocumentLoadMetadataTests(unittest.TestCase):
 
 
     @classmethod
@@ -14,25 +14,25 @@ class ConllDocumentTests(unittest.TestCase):
 
 
     def test_load_metadata_basic(self):
-        actual = ConllDocumentTests.test_doc._load_meta_data(["# key = value"])
+        actual = ConllDocumentLoadMetadataTests.test_doc._load_meta_data(["# key = value"])
         expected = {"key": "value"}
         self.assertEqual(actual, expected)
 
 
     def test_load_metadata_multiple(self):
-        actual = ConllDocumentTests.test_doc._load_meta_data(["# key = value", "# key2 = value2"])
+        actual = ConllDocumentLoadMetadataTests.test_doc._load_meta_data(["# key = value", "# key2 = value2"])
         expected = {"key": "value", "key2": "value2"}
         self.assertEqual(actual, expected)
 
 
     def test_load_metadata_empty(self):
-        actual = ConllDocumentTests.test_doc._load_meta_data([])
+        actual = ConllDocumentLoadMetadataTests.test_doc._load_meta_data([])
         expected = {}
         self.assertEqual(actual, expected)
 
 
     def test_load_metadata_full(self):
-        actual = ConllDocumentTests.test_doc._load_meta_data((
+        actual = ConllDocumentLoadMetadataTests.test_doc._load_meta_data((
             "# newdoc id = abc",
             "# sent_id = def",
             "# text = I like dogs",
@@ -43,8 +43,16 @@ class ConllDocumentTests(unittest.TestCase):
         self.assertEqual(actual, expected)
 
 
+class ConllDocumentLoadTokensTests(unittest.TestCase):
+
+
+    @classmethod
+    def setUpClass(cls):
+        cls.test_doc = conll.ConllDocument([])
+
+
     def test_load_tokens_basic(self):
-        actual = ConllDocumentTests.test_doc._load_tokens((
+        actual = ConllDocumentLoadTokensTests.test_doc._load_tokens((
             "1\tI\ti\tPRON\tPRON\t\t2\tnsubj",
             "2\tlike\tlike\tVERB\tVERB\t\t0\troot",
             "3\tdogs\tdog\tNOUN\tNOUN\t\t2\tdobj",
@@ -58,7 +66,7 @@ class ConllDocumentTests(unittest.TestCase):
 
 
     def test_load_tokens_metadata(self):
-        actual = ConllDocumentTests.test_doc._load_tokens((
+        actual = ConllDocumentLoadTokensTests.test_doc._load_tokens((
             "# newdoc id = abc",
             "# sent_id = def",
             "# text = I like dogs",
@@ -75,7 +83,7 @@ class ConllDocumentTests(unittest.TestCase):
 
 
     def test_load_tokens_underscore_literal(self):
-        actual = ConllDocumentTests.test_doc._load_tokens((
+        actual = ConllDocumentLoadTokensTests.test_doc._load_tokens((
             "1\t_\t_\tSYM\tNFP\t\t0\troot",
         ))
         expected = (
@@ -83,6 +91,8 @@ class ConllDocumentTests(unittest.TestCase):
         )
         self.assertEqual(actual, expected)
 
+
+class ConllDocumentInitTests(unittest.TestCase):
 
     def test_init_tokens_basic(self):
         actual = conll.ConllDocument((
