@@ -6,12 +6,13 @@ import argparse
 from typing import List, Tuple
 
 from lexicon_builder import LexiconBuilder
+from data_types.conll import ConllDocument
 
 
 class ConllBuilder(LexiconBuilder):
 
     def __init__(self):
-        super()
+        super().__init__()
         self.instances = []
 
 
@@ -21,8 +22,8 @@ class ConllBuilder(LexiconBuilder):
 
     def process_conll_file(self, path):
         instances = []
-        with open(path, 'r') as f:
-            instances = self.load(f)
+        with open(path, 'r', encoding="UTF-8") as f:
+            instances = self._load(f)
         return instances
 
 
@@ -34,8 +35,8 @@ class ConllBuilder(LexiconBuilder):
             if line:
                 current.append(line)
             elif current:
-                result.append(tuple(current))
+                result.append(ConllDocument(current))
                 current = []
         if current:
-            result.append(tuple(current))
+            result.append(ConllDocument(current))
         return result

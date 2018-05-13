@@ -3,6 +3,7 @@
 import unittest
 
 from builders.conll_builder import ConllBuilder
+from data_types.conll import ConllDocument
 
 
 class ConllBuilderLoadTests(unittest.TestCase):
@@ -13,8 +14,8 @@ class ConllBuilderLoadTests(unittest.TestCase):
 
 
     def test_basic(self):
-        actual = ConllBuilderLoadTests.test_builder._load(["abc"])
-        expected = [("abc",)]
+        actual = ConllBuilderLoadTests.test_builder._load(["1\tabc\tabc\t_\t_"])
+        expected = [("1\tabc\tabc\t_\t_",)]
         self.assertEqual(actual, expected)
 
 
@@ -25,14 +26,14 @@ class ConllBuilderLoadTests(unittest.TestCase):
 
 
     def test_multiple(self):
-        actual = ConllBuilderLoadTests.test_builder._load(["abc", "", "def"])
-        expected = [("abc",), ("def",)]
+        actual = ConllBuilderLoadTests.test_builder._load(["1\tabc\tabc\t_\t_", "", "1\tdef\tdef\t_\t_"])
+        expected = [("1\tabc\tabc\t_\t_",), ("1\tdef\tdef\t_\t_",)]
         self.assertEqual(actual, expected)
 
 
     def test_extra_whitespace(self):
-        actual = ConllBuilderLoadTests.test_builder._load(["", "abc", ""])
-        expected = [("abc",)]
+        actual = ConllBuilderLoadTests.test_builder._load(["", "1\tabc\tabc\t_\t_", ""])
+        expected = [ConllDocument("1\tabc\tabc\t_\t_",)]
         self.assertEqual(actual, expected)
 
 

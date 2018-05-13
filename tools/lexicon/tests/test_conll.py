@@ -74,6 +74,16 @@ class ConllDocumentTests(unittest.TestCase):
         self.assertEqual(actual, expected)
 
 
+    def test_load_tokens_underscore_literal(self):
+        actual = ConllDocumentTests.test_doc._load_tokens((
+            "1\t_\t_\tSYM\tNFP\t\t0\troot",
+        ))
+        expected = (
+            conll.ConllToken(1, "_", "_", "SYM", "NFP", "_", 0, "root"),
+        )
+        self.assertEqual(actual, expected)
+
+
     def test_init_tokens_basic(self):
         actual = conll.ConllDocument((
             "# newdoc id = abc",

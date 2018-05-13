@@ -40,17 +40,20 @@ class LexiconBuilder(object):
         raise NotImplementedError()
 
 
-def format_lexicon(lexicon_builder: LexiconBuilder) -> str:
-    pass
+    def to_choices(self) -> str:
+        return self.lexicon.to_choices()
 
 
 if __name__ == "__main__":
 
     # Circular dependencies must be defined in main
-    from builders import ud2_corpus_builder
+    from builders import ud2_builder
 
-    lexicon_builder = LexiconBuilder()
-    builders = {builder() for builder in (ud2_corpus_builder.UniversalDependencies2Builder,)}
+    # TODO: Separate top-level builder from child builders
+    # lexicon_builder = LexiconBuilder()
+    # builders = {builder() for builder in (ud2_builder.UniversalDependencies2Builder,)}
+    lexicon_builder = ud2_builder.UniversalDependencies2Builder()
+    builders = {lexicon_builder}
 
     parser = argparse.ArgumentParser("Build a Grammar Matrix Lexicon using the specified options")
     for builder in builders:
@@ -61,4 +64,4 @@ if __name__ == "__main__":
     for builder in builders:
         builder.build(args)
 
-    print(format_lexicon(lexicon_builder))
+    print(lexicon_builder.to_choices())

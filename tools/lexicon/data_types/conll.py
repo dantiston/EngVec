@@ -13,21 +13,24 @@ class ConllToken(object):
 
     def __init__(self, *args):
         # index, token, lemma, pos, xpos, morph, head, rel, edep, misc
-        self.index = int(self.__get(args, ConllToken.INDEX))
-        self.token = self.__get(args, ConllToken.TOKEN)
-        self.lemma = self.__get(args, ConllToken.LEMMA)
-        self.pos = self.__get(args, ConllToken.POS)
-        self.xpos = self.__get(args, ConllToken.XPOS)
+        self.index = self.__get_nullable(args, ConllToken.INDEX)
+        try:
+            self.token = args[ConllToken.TOKEN]
+        except Exception:
+            import pdb; pdb.set_trace()
+        self.lemma = args[ConllToken.LEMMA]
+        self.pos = self.__get_nullable(args, ConllToken.POS)
+        self.xpos = self.__get_nullable(args, ConllToken.XPOS)
 
         if len(args) > ConllToken.MORPH:
-            self.morph = self._load_dict(self.__get(args, ConllToken.MORPH))
-            self.head = int(self.__get(args, ConllToken.HEAD))
-            self.rel = self.__get(args, ConllToken.REL)
+            self.morph = self._load_dict(self.__get_nullable(args, ConllToken.MORPH))
+            self.head = self.__get_nullable(args, ConllToken.HEAD)
+            self.rel = self.__get_nullable(args, ConllToken.REL)
 
             if len(args) > ConllToken.EDEP:
-                self.edep = self._load_dict(self.__get(args, ConllToken.EDEP))
-                self.misc = self.__get(args, ConllToken.MISC)
-                self.space_after = "SpaceAfter=No" not in self.misc
+                self.edep = self._load_dict(self.__get_nullable(args, ConllToken.EDEP), value_sep=":")
+                self.misc = self.__get_nullable(args, ConllToken.MISC)
+                self.space_after = "SpaceAfter=No" not in self.misc if self.misc else None
 
             else:
                 self.edep = {}
@@ -45,11 +48,14 @@ class ConllToken(object):
         return cls(*string.split("\t"))
 
 
-    def _load_dict(self, string: str) -> Dict[str, str]:
+    def _load_dict(self, string: str, part_sep: str = "|", value_sep: str = "=") -> Dict[str, str]:
         result = {}
         if string:
-            for part in string.split("|"):
-                key, value = part.split(":")
+            for part in string.split(part_sep):
+                try:
+                    key, value = part.split(value_sep, 1)
+                except Exception:
+                    import pdb; pdb.set_trace()
                 result[key] = value
         return result
 
@@ -65,7 +71,8 @@ class ConllToken(object):
                    self.lemma == other.lemma and \
                    self.pos == other.pos and \
                    self.morph == other.morph and \
-                   self.head == other.head
+                   self.head == other.head and \
+                   self.rel == other.rel
         return False
 
 
@@ -78,7 +85,7 @@ class ConllToken(object):
         return "<{}>".format(",".join(map(str, (self.index, self.token, self.lemma, self.pos, self.xpos, self.morph, self.head, self.rel))))
 
 
-    def __get(self, args, position):
+    def __get_nullable(self, args, position):
         value = args[position]
         if value == EMPTY:
             return None
@@ -127,3 +134,7 @@ class ConllDocument(object):
 
     def __len__(self) -> int:
         return len(self.tokens)
+
+
+    def __iter__(self):
+        return iter(self.tokens)
