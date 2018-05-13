@@ -81,6 +81,8 @@ class ConllToken(object):
     def _as_loadable(self, value):
         if value == EMPTY or value is None:
             return EMPTY
+        if type(value) is dict:
+            return "|".join(("=".join((k, v)) for k, v in value.items()))
         return value
 
 

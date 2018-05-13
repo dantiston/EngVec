@@ -48,7 +48,6 @@ class MatrixLexicon(object):
 
 
     def __len__(self) -> int:
-        import pdb; pdb.set_trace()
         return sum(len(s) for key, nested in self.values.items() for s in nested)
 
 

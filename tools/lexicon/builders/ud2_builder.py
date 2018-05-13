@@ -8,7 +8,7 @@ from matrix_lexicon import LexiconType, MatrixLexicalItem
 
 TAG_MAPPINGS = {
     "NOUN": (LexiconType.COUNT_NOUNS, "noun"),
-    "PRON": (LexiconType.COUNT_NOUNS, "pronoun"),
+    "PRON": (LexiconType.PRONOUNS, "pronoun"),
     "PROPN": (LexiconType.PROPER_NOUNS, "proper-noun"),
     "VERB": (LexiconType.TRANSITIVE_VERBS, "verb"),
     "AUX": (LexiconType.AUXILIARIES, "auxiliaries"),
@@ -49,8 +49,5 @@ class UniversalDependencies2Builder(ConllBuilder):
         for instance in self.instances:
             for token in instance:
                 key, typeName = TAG_MAPPINGS[token.pos]
-                try:
-                    value = MatrixLexicalItem(token.token, token.lemma)
-                except TypeError:
-                    import pdb; pdb.set_trace()
-            self.lexicon.add(key, typeName, value)
+                value = MatrixLexicalItem(token.token, token.lemma)
+                self.lexicon.add(key, typeName, value)
