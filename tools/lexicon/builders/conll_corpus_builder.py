@@ -13,8 +13,31 @@ class ConllBuilder(LexiconBuilder):
 
 
     def build(self, options) -> None:
-        self.process_conll_file(options.universal_dependencies_file)
+        for path in options.ud2_conll_files:
+            self.process_conll_file(path)
 
 
     def set_args(self, parser: argparse.ArgumentParser) -> None:
         pass
+
+
+    def process_conll_file(self, path):
+        instances = []
+        with open(path, 'r') as f:
+            instances = self.load(f)
+        print(len(instances))
+        print(instances[0])
+
+
+    def load(self, f):
+        result = []
+        current = []
+        for line in f:
+            line = line.strip()
+            if current and not line:
+                result.append(current)
+                current = []
+            current.append(line)
+        if current:
+            result.append(current)
+        return result
