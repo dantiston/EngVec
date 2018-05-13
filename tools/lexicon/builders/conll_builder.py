@@ -3,6 +3,8 @@
 
 import argparse
 
+from typing import List, Tuple
+
 from lexicon_builder import LexiconBuilder
 
 
@@ -10,11 +12,7 @@ class ConllBuilder(LexiconBuilder):
 
     def __init__(self):
         super()
-
-
-    def build(self, options) -> None:
-        for path in options.ud2_conll_files:
-            self.process_conll_file(path)
+        self.instances = []
 
 
     def set_args(self, parser: argparse.ArgumentParser) -> None:
@@ -25,19 +23,19 @@ class ConllBuilder(LexiconBuilder):
         instances = []
         with open(path, 'r') as f:
             instances = self.load(f)
-        print(len(instances))
-        print(instances[0])
+        return instances
 
 
-    def load(self, f):
+    def _load(self, f) -> List[Tuple[str]]:
         result = []
         current = []
         for line in f:
             line = line.strip()
-            if current and not line:
-                result.append(current)
+            if line:
+                current.append(line)
+            elif current:
+                result.append(tuple(current))
                 current = []
-            current.append(line)
         if current:
-            result.append(current)
+            result.append(tuple(current))
         return result

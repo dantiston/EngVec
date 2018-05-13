@@ -2,11 +2,14 @@
 
 import argparse
 
+from matrix_lexicon import MatrixLexicon
+
 
 class LexiconBuilder(object):
 
     def __init__(self):
         self.builders = []
+        self.lexicon = MatrixLexicon()
 
 
     def __hash__(self) -> int:
@@ -37,6 +40,10 @@ class LexiconBuilder(object):
         raise NotImplementedError()
 
 
+def format_lexicon(lexicon_builder: LexiconBuilder) -> str:
+    pass
+
+
 if __name__ == "__main__":
 
     # Circular dependencies must be defined in main
@@ -53,3 +60,5 @@ if __name__ == "__main__":
 
     for builder in builders:
         builder.build(args)
+
+    print(format_lexicon(lexicon_builder))
